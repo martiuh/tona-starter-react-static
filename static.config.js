@@ -1,11 +1,9 @@
-import axios from 'axios';
+// import axios from 'axios';
 import path from 'path';
 import slash from 'slash';
-import fs from 'fs';
 
 import Document from './Document';
 
-const projectsDir = slash(path.resolve('./src/proyectos'));
 
 export default {
   Document,
@@ -14,30 +12,30 @@ export default {
     port: 3030
   },
   getSiteData: () => ({
-    siteTitle: 'BuenaPagina',
-    siteDescription: 'Sitios web modernos para todos',
-    siteAuthor: '@buenapagina'
+    siteTitle: 'Tona-React-Static',
+    siteDescription: 'Default starter',
+    siteAuthor: '@martiuh'
   }),
   getRoutes: async () => {
-    const { data: posts } = await axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
+    // const { data: posts } = await axios.get(
+    //   'https://jsonplaceholder.typicode.com/posts'
+    // );
 
-    return [
-      {
-        path: '/blog',
-        getData: () => ({
-          posts
-        }),
-        children: posts.map(post => ({
-          path: `/post/${post.id}`,
-          template: 'src/containers/Post',
-          getData: () => ({
-            post
-          })
-        }))
-      }
-    ];
+    // return [
+    //   {
+    //     path: '/blog',
+    //     getData: () => ({
+    //       posts
+    //     }),
+    //     children: posts.map(post => ({
+    //       path: `/post/${post.id}`,
+    //       template: 'src/containers/Post',
+    //       getData: () => ({
+    //         post
+    //       })
+    //     }))
+    //   }
+    // ];
   },
   plugins: [
     [

@@ -8,7 +8,7 @@ export default function Footer() {
       <span />
       <span />
       <span />
-      <strong>BuenaPagina.com &#169; {new Date().getFullYear()}</strong>
+      <strong>tona-react-static &#169; {new Date().getFullYear()}</strong>
       <p className="credits">
         <small>
           Some Icons made by <a href="https://www.freepik.com">freepik</a> from{' '}

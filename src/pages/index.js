@@ -7,10 +7,9 @@ export default function IndexPage() {
   return (
     <main className="index">
       <SEO
-        title="Domina el internet / Diseño de páginas web en Guadalajara y México - BuenaPagina.com"
-        titleTemplate={false}
+        title="Home"
       />
-      <h1>Hola razita</h1>
+      <h1>Tona React-Static starter</h1>
     </main>
   );
 }
