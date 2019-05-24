@@ -16,7 +16,7 @@ export default {
     siteDescription: 'Default starter',
     siteAuthor: '@martiuh'
   }),
-  getRoutes: async () => {
+  // getRoutes: async () => {
     // const { data: posts } = await axios.get(
     //   'https://jsonplaceholder.typicode.com/posts'
     // );
@@ -36,7 +36,7 @@ export default {
     //     }))
     //   }
     // ];
-  },
+  // },
   plugins: [
     [
       require.resolve('react-static-plugin-source-filesystem'),
