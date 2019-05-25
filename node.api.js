@@ -9,12 +9,12 @@ import semver from 'semver';
 import Analytics from './Document/Analytics';
 
 import staticConfig from './static.config';
-import customUrlLoader from './customUrlLoader';
 import customFileLoader from './customFileLoader';
+import customSvgLoader from './customSvgLoader';
 
 const { analyticsId } = staticConfig.getSiteData();
 
-const customSass = stage => {
+const customSassLoader = stage => {
   const includePaths = [];
   const rest = {};
   let loaders = [];
@@ -97,21 +97,8 @@ export default () => ({
     config.plugins.push(new webpack.DefinePlugin(globalsObj));
 
     config.module.rules[0].oneOf = [
-      customSass(stage),
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: 'babel-loader'
-          },
-          {
-            loader: 'react-svg-loader',
-            options: {
-              jsx: true
-            }
-          }
-        ]
-      },
+      customSassLoader(stage),
+      customSvgLoader(),
       customFileLoader(stage),
       // defaultLoaders.cssLoader,
       defaultLoaders.jsLoader,
