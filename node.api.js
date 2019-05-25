@@ -126,7 +126,6 @@ export default () => ({
           <link rel="apple-touch-icon" sizes={icon.sizes} href={icon.src} />
         ))}
       </React.Fragment>,
-      <Analytics id="UA-139894602-1X" />
     ];
     if (analyticsId) {
       headArr.push(<Analytics id={analyticsId} />);

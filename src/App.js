@@ -23,9 +23,11 @@ function App() {
       >
         <Location>
           {({ location }) => {
-            gTag('config', ANALYTICS_ID, {
-              page_path: location.pathname
-            });
+            if (typeof ANALYTICS_ID !== 'undefined') {
+              gTag('config', ANALYTICS_ID, {
+                page_path: location.pathname
+              });
+            }
 
             return (
               <Router location={location}>

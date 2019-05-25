@@ -16,7 +16,7 @@ export default {
     siteDescription: 'Default starter',
     siteAuthor: '@martiuh',
     // analyticsId is optional
-    analyticsId: 'UA-139894602-1'
+    analyticsId: null
   }),
   // getRoutes: async () => {
   // const { data: posts } = await axios.get(
