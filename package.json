@@ -1,6 +1,6 @@
 {
-  "name": "buenapagina.com",
-  "description": "website for a web dev bussiness",
+  "name": "tona-starter-react-static",
+  "description": "custom react-static starter by Tonatiuh",
   "private": true,
   "license": "MIT",
   "scripts": {
