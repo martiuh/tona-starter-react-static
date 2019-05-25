@@ -14,28 +14,30 @@ export default {
   getSiteData: () => ({
     siteTitle: 'Tona-React-Static',
     siteDescription: 'Default starter',
-    siteAuthor: '@martiuh'
+    siteAuthor: '@martiuh',
+    // analyticsId is optional
+    analyticsId: 'UA-139894602-1'
   }),
   // getRoutes: async () => {
-    // const { data: posts } = await axios.get(
-    //   'https://jsonplaceholder.typicode.com/posts'
-    // );
+  // const { data: posts } = await axios.get(
+  //   'https://jsonplaceholder.typicode.com/posts'
+  // );
 
-    // return [
-    //   {
-    //     path: '/blog',
-    //     getData: () => ({
-    //       posts
-    //     }),
-    //     children: posts.map(post => ({
-    //       path: `/post/${post.id}`,
-    //       template: 'src/containers/Post',
-    //       getData: () => ({
-    //         post
-    //       })
-    //     }))
-    //   }
-    // ];
+  // return [
+  //   {
+  //     path: '/blog',
+  //     getData: () => ({
+  //       posts
+  //     }),
+  //     children: posts.map(post => ({
+  //       path: `/post/${post.id}`,
+  //       template: 'src/containers/Post',
+  //       getData: () => ({
+  //         post
+  //       })
+  //     }))
+  //   }
+  // ];
   // },
   plugins: [
     [

@@ -6,10 +6,13 @@ import fs from 'fs';
 import webpack from 'webpack';
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
 import semver from 'semver';
+import Analytics from './Document/Analytics';
 
+import staticConfig from './static.config';
 import customUrlLoader from './customUrlLoader';
 import customFileLoader from './customFileLoader';
-const analyticsId = 'UA-139894602-1';
+
+const { analyticsId } = staticConfig.getSiteData();
 
 const customSass = stage => {
   const includePaths = [];
@@ -83,12 +86,15 @@ export default () => ({
       config.plugins.push(new WebpackPwaManifestPlugin(PWAManifest));
     }
 
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        BROWSER: JSON.stringify(stage !== 'node'),
-        ANALYTICS_ID: JSON.stringify(analyticsId)
-      })
-    );
+    const globalsObj = {
+      BROWSER: JSON.stringify(stage !== 'node')
+    };
+
+    if (analyticsId) {
+      globalsObj.ANALYTICS_ID = JSON.stringify(analyticsId);
+    }
+
+    config.plugins.push(new webpack.DefinePlugin(globalsObj));
 
     config.module.rules[0].oneOf = [
       customSass(stage),
@@ -121,7 +127,7 @@ export default () => ({
       .readFileSync(slash('./dist/manifest.webmanifest'))
       .toString();
     manifest = JSON.parse(manifest);
-    return [
+    const headArr = [
       ...elements,
       <React.Fragment>
         <link
@@ -132,7 +138,13 @@ export default () => ({
         {manifest.icons.map(icon => (
           <link rel="apple-touch-icon" sizes={icon.sizes} href={icon.src} />
         ))}
-      </React.Fragment>
+      </React.Fragment>,
+      <Analytics id="UA-139894602-1X" />
     ];
+    if (analyticsId) {
+      headArr.push(<Analytics id={analyticsId} />);
+    }
+
+    return headArr;
   }
 });

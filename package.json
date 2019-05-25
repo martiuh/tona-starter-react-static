@@ -1,6 +1,7 @@
 {
   "name": "tona-starter-react-static",
   "description": "custom react-static starter by Tonatiuh",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {
