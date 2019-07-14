@@ -1,28 +1,37 @@
 import React from 'react';
-import { useRouteData } from 'react-static';
-import { Link } from '@reach/router';
+
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer/Footer';
 
 import SEO from '../components/SEO';
 
 export default function Blog() {
-  const { posts } = useRouteData();
+  const posts = Array.from(Array(100)).map((item, idx) => ({
+    id: idx + 1,
+    title: `Entrada #${idx + 1}`
+  }));
+
   return (
-    <main>
-      <SEO title="Blog" description="Personal blog by Tonatiuh González" />
-      <h1>Últimas entradas</h1>
-      <code>
-        Enumerar nuestros posts (del último al final) También blogs de otros
-        servicios/páginas nuestros (de carácter dinámico)
-      </code>
-      {/* <br />
-    All Posts:
-    <ul>
-      {posts.map(post => (
-        <li key={post.id}>
-          <Link to={`/blog/post/${post.id}/`}>{post.title}</Link>
-        </li>
-      ))}
-    </ul> */}
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <SEO title="Blog" description="Personal blog by Tonatiuh González" />
+        <h1>Últimas entradas</h1>
+        <code>
+          Enumerar nuestros posts (del último al final) También blogs de otros
+          servicios/páginas nuestros (de carácter dinámico)
+        </code>
+        <br />
+        All Posts:
+        <ul>
+          {posts.map(post => (
+            <li key={post.id}>
+              <p>{post.title}</p>
+            </li>
+          ))}
+        </ul>
+      </main>
+      <Footer />
+    </>
   );
 }

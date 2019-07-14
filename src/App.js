@@ -1,5 +1,5 @@
 import React from 'react';
-import { Root, Routes } from 'react-static';
+import { Root, Routes, addPrefetchExcludes } from 'react-static';
 import { Router, Location } from '@reach/router';
 
 import Navbar from './components/Navbar';
@@ -8,12 +8,23 @@ import Footer from './components/Footer';
 import gTag from './gTag';
 import './main.scss';
 
-// addPrefetchExcludes(['dynamic']);
+function Dynamic() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <h1>Dynamic as fuck!!!</h1>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+addPrefetchExcludes(['dynamic']);
 
 function App() {
   return (
     <Root>
-      <Navbar />
       <React.Suspense
         fallback={
           <div style={{ height: '102vh' }}>
@@ -31,13 +42,13 @@ function App() {
 
             return (
               <Router location={location}>
+                <Dynamic path="dynamic" />
                 <Routes path="*" />
               </Router>
             );
           }}
         </Location>
       </React.Suspense>
-      <Footer />
     </Root>
   );
 }

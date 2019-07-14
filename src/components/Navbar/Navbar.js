@@ -29,6 +29,7 @@ export default function Navbar() {
       <span className="navbar-menu">
         <NavLink to="/blog">Blog</NavLink>
         <NavLink to="/about">About</NavLink>
+        <NavLink to="/dynamic">Dynamic</NavLink>
       </span>
     </nav>
   );
