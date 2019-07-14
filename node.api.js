@@ -25,7 +25,6 @@ const customSassLoader = stage => {
     loader: sassLoaderPath,
     options: { includePaths: ['src/', ...includePaths], ...rest }
   };
-  const styleLoader = { loader: 'style-loader' };
   const cssLoader = {
     loader: 'css-loader',
     options: {
@@ -34,10 +33,7 @@ const customSassLoader = stage => {
     }
   };
 
-  if (stage === 'dev') {
-    // Dev
-    loaders = [styleLoader, cssLoader, 'postcss-loader', sassLoader];
-  } else if (stage === 'node') {
+  if (stage === 'node') {
     // Node
     // Don't extract css to file during node build process
     loaders = [cssLoader, 'postcss-loader', sassLoader];
@@ -46,13 +42,18 @@ const customSassLoader = stage => {
 
     // for legacy css-loader version (<2.0) we need to add "minimize" to minify css code
     // for >2.0 it is handled with https://github.com/NMFR/optimize-css-assets-webpack-plugin
-    const cssLoaderVersion = require('css-loader/package.json').version;
-    if (semver.satisfies(cssLoaderVersion, '<2') === true) {
-      cssLoader.options.minimize = true;
-    }
+    // const cssLoaderVersion = require('css-loader/package.json').version;
+    // if (semver.satisfies(cssLoaderVersion, '<2') === true) {
+    //   cssLoader.options.minimize = true;
+    // }
 
     loaders = [
-      ExtractCssChunks.loader,
+      {
+        loader: ExtractCssChunks.loader,
+        options: {
+          hot: true
+        }
+      },
       cssLoader,
       'postcss-loader',
       sassLoader
@@ -61,7 +62,7 @@ const customSassLoader = stage => {
 
   return {
     test: /\.(c|sa|sc)ss$/,
-    use: loaders
+    loader: loaders
   };
 };
 
@@ -125,7 +126,7 @@ export default () => ({
         {manifest.icons.map(icon => (
           <link rel="apple-touch-icon" sizes={icon.sizes} href={icon.src} />
         ))}
-      </React.Fragment>,
+      </React.Fragment>
     ];
     if (analyticsId) {
       headArr.push(<Analytics id={analyticsId} />);
