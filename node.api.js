@@ -6,6 +6,8 @@ import fs from 'fs';
 import webpack from 'webpack';
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
 import semver from 'semver';
+import AppManifestWebpackPlugin from 'app-manifest-webpack-plugin';
+import parse from 'html-react-parser';
 import Analytics from './Document/Analytics';
 
 import staticConfig from './static.config';
@@ -85,6 +87,25 @@ export default () => ({
   webpack: (config, { stage, defaultLoaders }) => {
     if (stage !== 'node') {
       config.plugins.push(new WebpackPwaManifestPlugin(PWAManifest));
+      config.plugins.push(
+        new AppManifestWebpackPlugin({
+          logo: path.resolve('./src/images/logo.png'),
+          inject: false,
+          emitStats: true,
+          statsFilename: 'faviconStats.json',
+          config: {
+            icons: {
+              favicons: true,
+              appleIcon: false,
+              appleStartup: false,
+              android: false,
+              firefox: false,
+              windows: false,
+              yandex: false
+            }
+          }
+        })
+      );
     }
 
     const globalsObj = {
@@ -111,10 +132,14 @@ export default () => ({
   },
   headElements: elements => {
     // manually add the html tags
-    let manifest = fs
-      .readFileSync(slash('./dist/manifest.webmanifest'))
-      .toString();
-    manifest = JSON.parse(manifest);
+    const manifest = JSON.parse(
+      fs.readFileSync(slash('./dist/manifest.webmanifest')).toString()
+    );
+    const faviconStats = JSON.parse(
+      fs.readFileSync(slash('./dist/faviconStats.json')).toString()
+    );
+
+    const { html } = faviconStats;
     const headArr = [
       ...elements,
       <React.Fragment>
@@ -126,7 +151,8 @@ export default () => ({
         {manifest.icons.map(icon => (
           <link rel="apple-touch-icon" sizes={icon.sizes} href={icon.src} />
         ))}
-      </React.Fragment>
+      </React.Fragment>,
+      <React.Fragment>{parse(html.join(' '))}</React.Fragment>
     ];
     if (analyticsId) {
       headArr.push(<Analytics id={analyticsId} />);

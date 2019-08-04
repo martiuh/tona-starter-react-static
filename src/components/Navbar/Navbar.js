@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import Logo from '../../images/logo-bp-mini.png';
+import Logo from '../../images/logo.png';
 
 import './Navbar.css';
 
