@@ -83,6 +83,8 @@ const PWAManifest = {
   inject: false
 };
 
+const faviconOutput = 'icon/';
+
 export default () => ({
   webpack: (config, { stage, defaultLoaders }) => {
     if (stage !== 'node') {
@@ -93,6 +95,7 @@ export default () => ({
           inject: false,
           emitStats: true,
           statsFilename: 'faviconStats.json',
+          output: faviconOutput,
           config: {
             icons: {
               favicons: true,
@@ -139,7 +142,6 @@ export default () => ({
       fs.readFileSync(slash('./dist/faviconStats.json')).toString()
     );
 
-    const { html } = faviconStats;
     const headArr = [
       ...elements,
       <React.Fragment>
@@ -152,7 +154,15 @@ export default () => ({
           <link rel="apple-touch-icon" sizes={icon.sizes} href={icon.src} />
         ))}
       </React.Fragment>,
-      <React.Fragment>{parse(html.join(' '))}</React.Fragment>
+      <React.Fragment>
+        {faviconStats.files.map(file => (
+          <link
+            rel={file === 'favicon.ico' ? 'shortcut icon' : 'icon'}
+            href={`/${faviconOutput}${file}/`}
+            type="image/png"
+          />
+        ))}
+      </React.Fragment>
     ];
     if (analyticsId) {
       headArr.push(<Analytics id={analyticsId} />);
