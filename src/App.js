@@ -2,11 +2,11 @@ import React from 'react';
 import { Root, Routes, addPrefetchExcludes } from 'react-static';
 import { Router, Location } from '@reach/router';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
+import 'styles/main.scss';
 
 import gTag from './gTag';
-import './main.scss';
 
 function Dynamic() {
   return (
