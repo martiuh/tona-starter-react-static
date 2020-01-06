@@ -7,14 +7,13 @@ import webpack from 'webpack';
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
 import semver from 'semver';
 import AppManifestWebpackPlugin from 'app-manifest-webpack-plugin';
-import parse from 'html-react-parser';
 import Analytics from './Document/Analytics';
 
 import staticConfig from './static.config';
 import customFileLoader from './customFileLoader';
 import customSvgLoader from './customSvgLoader';
 
-const { analyticsId } = staticConfig.getSiteData();
+const { analyticsId, siteTitle, siteDescription } = staticConfig.getSiteData();
 
 const customSassLoader = stage => {
   const includePaths = [];
@@ -69,9 +68,9 @@ const customSassLoader = stage => {
 };
 
 const PWAManifest = {
-  name: 'React Static Tona',
+  name: siteTitle,
+  description: siteDescription,
   filename: 'manifest.webmanifest',
-  description: 'Single Starter',
   background_color: '#000',
   crossorigin: 'use-credentials',
   icons: [
@@ -130,6 +129,16 @@ export default () => ({
       defaultLoaders.jsLoaderExt,
       defaultLoaders.fileLoader
     ];
+
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        styles: slash(path.resolve('./src/styles')),
+        css: slash(path.resolve('./src/css')),
+        containers: slash(path.resolve('./src/containers'))
+      }
+    };
 
     return config;
   },
