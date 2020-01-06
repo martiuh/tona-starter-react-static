@@ -23,7 +23,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-hot-loader": "^4.3.12",
-    "react-static": "^7.1.0",
+    "react-static": "^7.2.3",
     "react-static-plugin-reach-router": "^7.0.0",
     "react-static-plugin-sitemap": "^7.0.0",
     "react-static-plugin-source-filesystem": "^7.0.10",
